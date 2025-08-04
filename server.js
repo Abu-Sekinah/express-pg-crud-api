@@ -1,11 +1,25 @@
-require('dotenv').config();
-const express = require('express');
+require("dotenv").config();
+const express = require("express");
 const app = express();
-const usersRouter = require('./routes/users');
+const usersRouter = require("./routes/users");
+const port = process.env.PORT || 3000;
+
 app.use(express.json());
-app.use('/users', usersRouter);
+
+// Routes
+app.use("/users", usersRouter);
+
+// 404 handler
 app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+  res.status(404).json({ error: "Route not found" });
 });
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// 500 error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal Server Error" });
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});

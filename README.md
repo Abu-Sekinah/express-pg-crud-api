@@ -1,22 +1,24 @@
-# Express + PostgreSQL CRUD API
+# Express PostgreSQL CRUD API
 
-## 📦 Description
-A minimal RESTful API using Express.js and PostgreSQL that supports CRUD operations on a `users` table.
+This is a simple Express.js REST API connected to PostgreSQL. It supports full CRUD operations on a `users` table.
 
-## 🛠 Setup
+## Setup Instructions
 
-### 1. Install Dependencies
+1. Clone the repository and run:
+
 ```bash
 npm install
 ```
 
-### 2. Create `.env` File
-```env
-DATABASE_URL=postgresql://username:password@localhost:5432/your_database
+2. Create a `.env` file with the following:
+
+```
+DATABASE_URL=your_postgres_connection_string
 PORT=3000
 ```
 
-### 3. Setup PostgreSQL Table
+3. Create the users table in PostgreSQL:
+
 ```sql
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -25,39 +27,27 @@ CREATE TABLE users (
 );
 ```
 
-### 4. Start the Server
+4. Run the server:
+
 ```bash
 npm run dev
 ```
 
-## 📡 API Endpoints
+## API Endpoints
 
-### POST /users
-Creates a new user.
-```json
-{
-  "name": "Jane Doe",
-  "email": "jane@example.com"
-}
-```
+- `GET /users`: Fetch all users
+- `GET /users/:id`: Get a user by ID
+- `POST /users`: Create a new user
+- `PUT /users/:id`: Update a user
+- `DELETE /users/:id`: Delete a user
 
-### GET /users
-Returns all users.
+## Error Handling
 
-### GET /users/:id
-Returns a single user by ID.
+- 404 for routes not found
+- 500 for internal server errors
+- 400 for missing inputs
 
-### PUT /users/:id
-Updates a user by ID.
+## To-Do
 
-### DELETE /users/:id
-Deletes a user by ID.
-
-## 🧪 Error Handling
-- Missing fields return 400.
-- SQL/database issues return 500.
-- Not found returns 404.
-
-## 🧹 To-Do
-- Add input validation with a library like `joi`.
-- Implement database reconnection logic.
+- Add reconnection logic in `db.js`
+- Use more robust validation middleware like `Joi`
